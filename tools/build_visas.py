@@ -31,6 +31,8 @@ INBOX = cfg("inbox")
 
 WORDS = {
     "en": {
+        "card": "us-visas",
+        "card_alt": "Card: US visas for Thai nationals, Chiang Mai Visa Desk.",
         "lang": "en", "dir": "ltr",
         "title": f"US visas for Thai nationals — {NAME}",
         "desc": "Document preparation for Thai nationals applying for US visas: visit, study, work, family, investment and after a refusal. Business plans, source-of-funds narratives and interview preparation, with US counsel on anything that is a filing.",
@@ -99,6 +101,8 @@ WORDS = {
         "f_noscript_b": " and a price comes back.",
     },
     "th": {
+        "card": "th-us-visas",
+        "card_alt": "การ์ด: วีซ่าอเมริกาสำหรับคนไทย, Chiang Mai Visa Desk",
         "lang": "th", "dir": "ltr",
         "title": f"วีซ่าอเมริกาสำหรับคนไทย — {NAME}",
         "desc": "บริการจัดเตรียมเอกสารวีซ่าสหรัฐอเมริกาสำหรับคนไทย: ท่องเที่ยว เรียน ทำงาน ครอบครัว ลงทุน และกรณีเคยถูกปฏิเสธ แผนธุรกิจ ที่มาของเงินทุน และการเตรียมสัมภาษณ์ โดยมีทนายความสหรัฐรับผิดชอบการยื่น",
@@ -347,9 +351,8 @@ def render(lang, data):
 <meta property="og:title" content="{esc(w["title"])}">
 <meta property="og:description" content="{esc(w["desc"])}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{ORIGIN}/assets/share.png">
 <meta property="og:locale" content="{locale}">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="{ORIGIN}/assets/og/{w["card"]}.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="{esc(w["card_alt"])}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{ORIGIN}/assets/og/{w["card"]}.jpg"><meta name="twitter:image:alt" content="{esc(w["card_alt"])}">
 <meta name="theme-color" content="#F7F4EC" media="(prefers-color-scheme:light)">
 <meta name="theme-color" content="#111319" media="(prefers-color-scheme:dark)">
 <link rel="icon" href="{assets}/mark.svg" type="image/svg+xml">
