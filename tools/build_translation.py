@@ -19,6 +19,8 @@ PATHS = {"en": "translation/", "th": "th/translation/", "my": "my/translation/"}
 
 W = {
     "en": {
+        "card": "translation",
+        "card_alt": "Card: Translation, Thai, English, Burmese, Chiang Mai Visa Desk.",
         "title": "Translation: Thai, English, Burmese — Chiang Mai Visa Desk",
         "desc": "Translation between Thai, English and Burmese for visa, work-permit and migrant-worker files in Chiang Mai: bank letters, certificates, house registration, contracts, pink card and CI papers, and an interpreter at Immigration and the employment office.",
         "skip": "Skip to the quote form",
@@ -70,6 +72,8 @@ W = {
         "locale": "en_US",
     },
     "th": {
+        "card": "th-translation",
+        "card_alt": "การ์ด: แปลเอกสาร ไทย อังกฤษ พม่า, Chiang Mai Visa Desk",
         "title": "แปลเอกสาร ไทย อังกฤษ พม่า — Chiang Mai Visa Desk",
         "desc": "แปลเอกสารภาษาไทย อังกฤษ และพม่า สำหรับแฟ้มวีซ่า ใบอนุญาตทำงาน และแรงงานต่างด้าวในเชียงใหม่ หนังสือรับรองธนาคาร ทะเบียนสมรส สูติบัตร ทะเบียนบ้าน สัญญาจ้าง บัตรชมพู เอกสาร CI และล่ามที่ตรวจคนเข้าเมืองและสำนักงานจัดหางาน",
         "skip": "ข้ามไปที่แบบฟอร์มขอราคา",
@@ -121,6 +125,8 @@ W = {
         "locale": "th_TH",
     },
     "my": {
+        "card": "my-translation",
+        "card_alt": "ကတ်: ဘာသာပြန် - ထိုင်း၊ အင်္ဂလိပ်၊ မြန်မာ, Chiang Mai Visa Desk",
         "title": "ဘာသာပြန် - ထိုင်း၊ အင်္ဂလိပ်၊ မြန်မာ — Chiang Mai Visa Desk",
         "desc": "ချင်းမိုင်ရှိ ဗီဇာ၊ အလုပ်ပါမစ်နှင့် ရွှေ့ပြောင်းအလုပ်သမား ဖိုင်များအတွက် ထိုင်း၊ အင်္ဂလိပ်နှင့် မြန်မာ ဘာသာပြန်။ ဘဏ်ထောက်ခံစာ၊ မွေးစာရင်း၊ လက်ထပ်စာချုပ်၊ အိမ်ထောင်စုစာရင်း၊ အလုပ်ခန့်စာချုပ်၊ ပန်းရောင်ကတ်နှင့် CI စာရွက်များ၊ လူဝင်မှုကြီးကြပ်ရေးရုံးနှင့် အလုပ်အကိုင်ရုံးတွင် စကားပြန်။",
         "skip": "စျေးနှုန်းပုံစံသို့",
@@ -251,11 +257,8 @@ def page(lang):
 <meta property="og:title" content="{e(t["title"])}">
 <meta property="og:description" content="{e(t["desc"])}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{ORIGIN}/assets/share.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:locale" content="{t["locale"]}">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="{ORIGIN}/assets/og/{t["card"]}.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="{e(t["card_alt"])}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{ORIGIN}/assets/og/{t["card"]}.jpg"><meta name="twitter:image:alt" content="{e(t["card_alt"])}">
 <meta name="theme-color" content="#F7F4EC" media="(prefers-color-scheme:light)">
 <meta name="theme-color" content="#111319" media="(prefers-color-scheme:dark)">
 <link rel="icon" href="{up}assets/mark.svg" type="image/svg+xml">
