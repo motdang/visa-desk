@@ -9,6 +9,7 @@
     "ORIGIN_CODE": "CMVD",
     "ORIGIN_CODE_US": "USOUT",
     "ORIGIN_CODE_WL": "WLABEL",
+    "ORIGIN_CODE_PLAN": "CMVD-EST",
     // Notifications are internal, so they send from an already-verified
     // Resend domain. Move this to the desk's own domain once it is added to
     // Resend and its DKIM records are live.

@@ -22,6 +22,8 @@ import { handle as payVerify } from "./pay/verify.js";
  *            the Thailand-side recipient list.
  *   line=wl  Someone wanting a licensed copy of this site for their own city.
  *            Goes to WL_RECIPIENTS and is stamped ORIGIN_CODE_WL.
+ *   line=plan The ฿2,000 written plan on /answers/ pages, which Nan writes.
+ *            Goes to PLAN_RECIPIENTS only and is stamped ORIGIN_CODE_PLAN.
  *
  * A licensed copy carries a licence id in its config. That id rides on every
  * enquiry it sends and is stored beside the origin, so a licensed deployment
@@ -55,7 +57,7 @@ const CORS = (origin) => ({
 // it is stamped here, from the Worker's own config, so an enquiry that came
 // through this site carries the desk's attribution whatever the URL said.
 const FIELDS = ["name", "contact", "visa", "need", "date", "where", "who", "notes", "ref", "page", "landing", "licence"];
-const LINES = ["th", "us", "wl"];
+const LINES = ["th", "us", "wl", "plan"];
 
 export default {
   async fetch(request, env, ctx) {
@@ -91,6 +93,7 @@ export default {
     row.origin = ({
       us: env.ORIGIN_CODE_US || "USOUT",
       wl: env.ORIGIN_CODE_WL || "WLABEL",
+      plan: env.ORIGIN_CODE_PLAN || "CMVD-EST",
     }[row.line] || env.ORIGIN_CODE || "DESK").slice(0, 40); // ours, always, not the page's
     row.licence = row.licence.slice(0, 40);                 // which copy of the site sent it
 
@@ -121,12 +124,13 @@ export default {
             to,
             reply_to: contact.includes("@") ? contact : undefined,
             subject: `#${id} ${
-              { us: "US visa", wl: "White label" }[row.line] || row.need || "enquiry"
+              { us: "US visa", wl: "White label", plan: "Written plan ฿2,000" }[row.line] || row.need || "enquiry"
             } — ${row.name} [${row.origin}${row.ref ? "/" + row.ref : ""}${row.licence ? " " + row.licence : ""}]`,
             text:
               `line:   ${{
                 us: "US visas — this book only",
                 wl: "White-label enquiry — this book only",
+                plan: "Written plan — Nan only",
               }[row.line] || "Thailand side — the whole desk"}\n` +
               `from:   ${row.licence ? "licensed copy " + row.licence : "the original site"}\n` +
               `origin: ${row.origin}   (commission: the desk)\n` +
@@ -148,6 +152,7 @@ function recipients(env, line) {
   // going to the wrong people.
   const list = line === "us" ? env.US_RECIPIENTS
     : line === "wl" ? env.WL_RECIPIENTS || env.US_RECIPIENTS
+    : line === "plan" ? env.PLAN_RECIPIENTS
     : env.DESK_RECIPIENTS || env.DESK_INBOX;
   return String(list || "")
     .split(",")

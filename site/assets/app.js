@@ -78,8 +78,8 @@
   // data-line="us" is the US-outbound book and is stamped, routed and counted
   // separately from the shared Thailand-side desk.
   var formEl = document.getElementById("quoteform");
-  var LINE = (formEl && formEl.getAttribute("data-line")) || "th";
-  var ORIGIN = ({ us: C.originCodeUs, wl: C.originCodeWl }[LINE] || C.originCode) || "";
+  var BOOK = (formEl && formEl.getAttribute("data-line")) || "th";
+  var ORIGIN = ({ us: C.originCodeUs, wl: C.originCodeWl }[BOOK] || C.originCode) || "";
 
   var chip = $("#refchip"), code = $("#refcode");
   if (chip && code && REF) {
@@ -88,7 +88,7 @@
   }
   var hidRef = $("#f-ref"); if (hidRef) hidRef.value = REF;
   var hidOrigin = $("#f-origin"); if (hidOrigin) hidOrigin.value = ORIGIN;
-  var hidLine = $("#f-line"); if (hidLine) hidLine.value = LINE;
+  var hidLine = $("#f-line"); if (hidLine) hidLine.value = BOOK;
   var LICENCE = (C.licence && C.licence.id) || "";
   var hidLic = $("#f-licence"); if (hidLic) hidLic.value = LICENCE;
   var hidPage = $("#f-page"); if (hidPage) hidPage.value = location.pathname;
@@ -314,7 +314,7 @@
 
       data.ref = REF;
       data.origin = ORIGIN;
-      data.line = LINE;
+      data.line = BOOK;
       data.licence = LICENCE;
       data.landing = location.href.slice(0, 500);
       data.idempotencyKey = idem;
