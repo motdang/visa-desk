@@ -104,4 +104,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chiangmaivisadesk.com/translation/"/>
     <changefreq>monthly</changefreq><priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://chiangmaivisadesk.com/answers/</loc>
+    <changefreq>weekly</changefreq><priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chiangmaivisadesk.com/answers/800k-deposit-after-death/</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq><priority>0.8</priority>
+  </url>
 </urlset>
