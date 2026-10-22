@@ -223,10 +223,9 @@
       <div class="card rise" data-payfixed data-payee="0988239210" data-amount="2000" data-ref="CMVD-EST">
         <h3>฿2,000 by PromptPay</h3>
         <div class="qr" style="max-width:220px;background:#fff;border-radius:6px"></div>
-        <p>Scan with any Thai banking app. The app shows the name the money goes to before you pay. Send the slip on LINE, or with the form.</p>
-        <p><a class="btn accent" href="https://line.me/R/ti/p/@964yxgnk">Send the slip on LINE</a></p>
+        <p>Scan with any Thai banking app. The app shows the name the money goes to before you pay. Then send the form; the reply asks for the slip.</p>
       </div>
-      <form class="panel" id="quoteform" novalidate>
+      <form class="panel" id="quoteform" data-line="plan" novalidate>
         <div class="fields">
           <div class="field">
             <label for="f-name">Name</label>
@@ -273,7 +272,7 @@
         <input type="hidden" name="landing" id="f-landing">
         <div class="form-foot">
           <button class="btn accent" type="submit" id="f-submit">Send it</button>
-          <p class="status" id="f-status" role="status" aria-live="polite">This goes to the desk inbox.</p>
+          <p class="status" id="f-status" role="status" aria-live="polite">This goes to the person who writes the plan.</p>
         </div>
         <noscript><p class="hint" style="margin-top:1rem">Your browser is not running scripts. Email the same details to <a href="mailto:hello@chiangmaivisadesk.com">hello@chiangmaivisadesk.com</a>.</p></noscript>
       </form>
