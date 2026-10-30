@@ -26,7 +26,7 @@ SHARE_HOSTS = {
 VOCAB_HOSTS = {
     "schema.org", "creativecommons.org", "api.resend.com",
     "sitemaps.org", "www.sitemaps.org", "www.w3.org",
-    "motdang.net",
+    "motdang.net", "offrampt.net",
 }
 
 PAGES = ["index.html", "us-visas/index.html", "farang-buddy/index.html", "partners/index.html",
