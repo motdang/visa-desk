@@ -1,4 +1,31 @@
-import { handle as payVerify } from "./pay/verify.js";
+import { handle as payVerify, checkSlip, slipOn } from "./pay/verify.js";
+
+// Fixed-price items a page may ask to be paid for. The amount checked is this one,
+// never one sent by the browser.
+const FIXED = { plan: { baht: 2000, ref: "CMVD-EST", what: "Written plan" } };
+
+async function fixedPay(request, env, ctx, origin) {
+  if (request.method === "GET") return json({ on: slipOn(env) }, 200, origin);
+  if (request.method !== "POST") return json({ ok: false, why: "unread" }, 405, origin);
+  let form;
+  try { form = await request.formData(); } catch (e) { return json({ ok: false, why: "nofile" }, 400, origin); }
+  const item = FIXED[str(form.get("item"))];
+  if (!item) return json({ ok: false, why: "unread" }, 400, origin);
+  const r = await checkSlip(env, form.get("slip"), item.baht);
+  if (!r.ok) return json({ ok: false, why: r.why }, 200, origin);
+  const ref = `${item.ref}-${r.transRef.slice(-6)}`;
+  const key = env.RESEND_API_KEY || env.RESEND_KEY;
+  if (key && env.PAY_MAIL_TO && env.PAY_MAIL_FROM) {
+    const m = fetch("https://api.resend.com/emails", {
+      method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: env.PAY_MAIL_FROM, to: env.PAY_MAIL_TO.split(","),
+        subject: `Paid: ฿${item.baht} · ${item.what} · ${ref}`,
+        text: `฿${item.baht} for ${item.what.toLowerCase()}.\nReference given to the payer: ${ref}\n` +
+          `Bank reference: ${r.transRef}\nConfirmed by SlipOK on chiangmaivisadesk.com.` }) }).catch(() => {});
+    if (ctx && ctx.waitUntil) ctx.waitUntil(m); else await m;
+  }
+  return json({ ok: true, ref, amount: item.baht }, 200, origin);
+}
 /**
  * Quote + partner intake for the site.
  *
@@ -76,6 +103,8 @@ export default {
       h.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
       return new Response(r.body, { status: r.status, headers: h });
     }
+    // One fixed price (site/pay/fixed.js): the page names the item, the price comes from FIXED above.
+    if (url.pathname === "/pay/fixed") return fixedPay(request, env, ctx, origin);
     if (url.pathname !== "/quote" || request.method !== "POST") return json({ error: "not found" }, 404, origin);
 
     let body;
